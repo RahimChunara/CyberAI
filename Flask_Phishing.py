@@ -21,7 +21,7 @@ def index():
     if gg[0][0]>0.5:
       output=="The Site is CLEAR"     
     return jsonify({"response":output})
-    return render_template('index.html', request="POST")   
+       
   else:
 
       return render_template('index.html')
