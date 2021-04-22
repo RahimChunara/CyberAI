@@ -66,22 +66,24 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   var url = tab.url;
   if (url !== undefined && changeInfo.status == "complete") {
     chrome.storage.sync.get(["checkBox"], function (items) {
-      // alert(url)
-      // if (items.checkBox == "checked") {
-      //   $.ajax({
-      //     type: "GET",
-      //     url: "http://localhost:5000/",
-      //     // data: { param: tabURL },
-      //     success: callbackFunc,
-      //   });
-      // }
+      
+      if (items.checkBox == "checked") {
+        // alert(url)
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:5000/",
+          contentType: 'application/json;charset=UTF-8',
+          data: JSON.stringify({ 'data': url }),
+          success: callbackFunc,
+        });
+      }
     });
   }
 });
 
-// function callbackFunc(response) {
-//   // alert(response);
-// }
+function callbackFunc(response) {
+  alert(response.response);
+}
 
 // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 //   var tabURL = tabs[0].url;
