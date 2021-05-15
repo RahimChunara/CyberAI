@@ -14,8 +14,8 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
   if request.method == "POST":
-    print(request.json['data'])
-    csv_file = urlparse(request.json['data']).netloc
+    # print(request.json['data'])
+    # csv_file = urlparse(request.json['data']).netloc
     # print('%s.csv'%csv_file)
     generate_data_set(request.json['data'])
     test=pd.read_csv('./gg.csv')
@@ -23,7 +23,7 @@ def index():
     X_test = test.iloc[:,0:30].values.astype(int)
     predictions = pred_model.predict(X_test)
     df = pd.DataFrame(predictions)
-    print(df)
+    # print(df)
     gg=df.values.tolist()
     if gg[0][0]>0.5:
       output="The Site is CLEAR" 
@@ -33,6 +33,8 @@ def index():
       output="This Site is PHISHING"
       print(output)
       return jsonify({"response":output})
-
+    # print("jsdhbgfujhbrg")
+    # return "Done"
+    
 if __name__ == "__main__":
     app.run(threaded=False)
